@@ -14,11 +14,11 @@ import { index as resolveIndex } from 'table-resolver';
 
 ## API
 
-The API consists of two parts: data resolvers and column resolvers. If you have complex data, use the former. Latter come in handy if you have a nested column definition that needs to be flattened so that it works with Reactabular.
+The API consists of two parts: **row resolvers** and **column resolvers**. If you have complex data, use the former. Latter come in handy if you have a nested column definition that needs to be flattened so that it works with a component like Reactabular.
 
-## Data Resolvers
+## Row Resolvers
 
-Reactabular provides **resolve** module for handling with these cases. The system relies on an iterator that accepts rows and then transforms it using a resolver.
+`table-resolver` uses an iterator that accepts rows and then transforms it using a specific resolver or several assuming they have been composed.
 
 ### `resolve.resolve`
 
@@ -44,7 +44,7 @@ The `nested` resolver digs rows from a `property: 'name.first'` kind of definiti
 
 The `byFunction` resolver accepts a path from where to look for a resolving function. It could be `column.cell.resolve` for example and you can use a nested definition for getting it from your column definition.
 
-Instead of replacing the original value, `byFunction` generates `_<property>` kind of field to the resulting rows. Other functionality of Reactabular can use this hint and use the underscore field for user facing portions while using actual values for logic that relies on that.
+Instead of replacing the original value, `byFunction` generates `_<property>` kind of field to the resulting rows. This sort of implicit rule is useful for other functionality as it can rely on the same convention.
 
 ## Column Resolvers
 
@@ -52,7 +52,7 @@ Instead of replacing the original value, `byFunction` generates `_<property>` ki
 
 **`({ columns, childrenField = 'children' }) => <resolved columns>`**
 
-Assuming your column definition is nested, you will need to resolve it to a flat format before other functionality of Reactabular can work. `resolve.columnChildren` does exactly that.
+Assuming your column definition is nested, this function resolves it to a flat format.
 
 ### `resolve.headerRows`
 
