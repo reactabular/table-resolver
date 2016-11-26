@@ -65,6 +65,10 @@ If your column definition is nested, you have to resolve it to header rows. `res
 If you want to combine resolvers, you can achieve it like this.
 
 ```javascript
+import { compose } from 'redux';
+
+...
+
 const resolver = resolve.resolve({
   columns,
   method: (extra) => compose(
