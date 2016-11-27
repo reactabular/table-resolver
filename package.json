@@ -21,7 +21,8 @@
     "tables",
     "resolve",
     "resolving",
-    "algorithm"
+    "algorithm",
+    "reactabular"
   ],
   "files": [
     "dist"
