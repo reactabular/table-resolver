@@ -1,5 +1,10 @@
 ## table-resolver
 
+2.0.0 / 2016-11-27
+==================
+
+  * Breaking - Drop `resolve.rowKey`. That was moved to `reactabular-table` since it's too specific to fit here.
+
 1.0.0 / 2016-11-26
 ==================
 
