@@ -97,42 +97,16 @@ const columns = [
     }
   },
   {
+    property: 'name.first',
     header: {
-      label: 'Name'
-    },
-    children: [
-      {
-        property: 'name.first',
-        header: {
-          label: 'First Name'
-        }
-      },
-      {
-        property: 'name.last',
-        header: {
-          label: 'Last Name'
-        }
-      }
-    ]
+      label: 'First Name'
+    }
   },
   {
+    property: 'name.last',
     header: {
-      label: 'About'
-    },
-    children: [
-      {
-        property: 'company',
-        header: {
-          label: 'Company'
-        }
-      },
-      {
-        property: 'sentence',
-        header: {
-          label: 'Sentence'
-        }
-      }
-    ]
+      label: 'Last Name'
+    }
   }
 ];
 
