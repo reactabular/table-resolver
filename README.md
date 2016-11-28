@@ -86,6 +86,7 @@ The following example shows how you to resolve nested values.
 
 ```jsx
 /*
+import { compose } from 'redux';
 import * as resolve from 'table-resolver';
 */
 
@@ -97,16 +98,42 @@ const columns = [
     }
   },
   {
-    property: 'name.first',
     header: {
-      label: 'First Name'
-    }
+      label: 'Name'
+    },
+    children: [
+      {
+        property: 'name.first',
+        header: {
+          label: 'First Name'
+        }
+      },
+      {
+        property: 'name.last',
+        header: {
+          label: 'Last Name'
+        }
+      }
+    ]
   },
   {
-    property: 'name.last',
     header: {
-      label: 'Last Name'
-    }
+      label: 'About'
+    },
+    children: [
+      {
+        property: 'company',
+        header: {
+          label: 'Company'
+        }
+      },
+      {
+        property: 'sentence',
+        header: {
+          label: 'Sentence'
+        }
+      }
+    ]
   }
 ];
 
@@ -135,7 +162,10 @@ const rows = [
 
 <ul>{
   resolve.resolve(
-    { columns, method: resolve.nested }
+    {
+      columns: resolve.columnChildren({ columns }),
+      method: resolve.nested
+    }
   )(rows).map((d, i) =>
     <li key={`value-${i}`}>{JSON.stringify(d, null, 2)}</li>
   )
