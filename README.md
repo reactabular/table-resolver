@@ -86,7 +86,6 @@ The following example shows how you to resolve nested values.
 
 ```jsx
 /*
-import { compose } from 'redux';
 import * as resolve from 'table-resolver';
 */
 
