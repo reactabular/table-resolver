@@ -1,4 +1,4 @@
-function resolve({ columns, method }, options = {}) {
+function resolve({ columns, method }) {
   if (!columns) {
     throw new Error('resolve - Missing columns!');
   }
@@ -21,13 +21,13 @@ function resolve({ columns, method }, options = {}) {
           ...rowData,
           ...ret,
           ...result,
-          _index: rowIndex,
+          _index: rowIndex
         };
       });
 
       return ret;
     });
-  }
+  };
 }
 
 export default resolve;

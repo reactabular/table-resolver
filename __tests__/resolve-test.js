@@ -187,7 +187,7 @@ describe('resolve.resolve', function () {
       }
     ];
     const method = () => rowData => ({
-      ...rowData,
+      ...rowData
     });
     const resolver = resolve({
       columns,
@@ -215,7 +215,7 @@ describe('resolve.resolve', function () {
       {
         id: originalId,
         _index: 0
-      },
+      }
     ];
     const resolver = resolve({
       columns,
