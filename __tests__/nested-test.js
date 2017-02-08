@@ -19,6 +19,24 @@ describe('resolve.nested', function () {
 
     expect(nested({ column })(rowData)).toEqual(expected);
   });
+  it('resolves nested values, using a custom getter', function () {
+    const lastName = 'demo';
+    const property = a => (a.name || {}).last;
+    const rowData = {
+      name: {
+        last: lastName
+      }
+    };
+    const expected = {
+      name: {
+        last: lastName
+      },
+      [property]: lastName
+    };
+    const column = { property };
+
+    expect(nested({ column })(rowData)).toEqual(expected);
+  });
 
   it('resolves normal values', function () {
     const name = 'demo';

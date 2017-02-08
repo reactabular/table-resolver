@@ -28,7 +28,8 @@ describe('resolve.resolve', function () {
     const expected = [
       {
         name,
-        _name: rows[0].name
+        _name: rows[0].name,
+        _index: 0
       }
     ];
     const method = ({ column }) => rowData => ({
@@ -73,7 +74,8 @@ describe('resolve.resolve', function () {
           last: name
         },
         'name.first': name,
-        'name.last': name
+        'name.last': name,
+        _index: 0
       }
     ];
 
@@ -108,7 +110,8 @@ describe('resolve.resolve', function () {
           last: lastName
         },
         'name.last': lastName,
-        '_name.last': lastName + lastName
+        '_name.last': lastName + lastName,
+        _index: 0
       }
     ];
     const resolver = resolve({
@@ -148,7 +151,8 @@ describe('resolve.resolve', function () {
           last: 'Demo'
         },
         'name.last': lastName,
-        '_name.last': lastName + lastName
+        '_name.last': lastName + lastName,
+        _index: 0
       }
     ];
     const resolver = resolve({
@@ -162,7 +166,7 @@ describe('resolve.resolve', function () {
     expect(resolver(rows)).toEqual(expected);
   });
 
-  it('passes rowIndex', function () {
+  it('inserts rowIndex', function () {
     const originalId = 123;
     const columns = [
       {
@@ -182,9 +186,8 @@ describe('resolve.resolve', function () {
         _index: 0
       }
     ];
-    const method = ({ rowIndex }) => rowData => ({
+    const method = () => rowData => ({
       ...rowData,
-      _index: rowIndex
     });
     const resolver = resolve({
       columns,
@@ -210,8 +213,9 @@ describe('resolve.resolve', function () {
     ];
     const expected = [
       {
-        id: originalId
-      }
+        id: originalId,
+        _index: 0
+      },
     ];
     const resolver = resolve({
       columns,

@@ -8,8 +8,8 @@ Sometimes your rows might come in a nested format or it might have a representat
 import * as resolve from 'table-resolver';
 
 // Or you can cherry-pick
-import { index } from 'table-resolver';
-import { index as resolveIndex } from 'table-resolver';
+import { nested } from 'table-resolver';
+import { nested as resolveNested } from 'table-resolver';
 ```
 
 ## API
@@ -18,27 +18,21 @@ The API consists of two parts: **row resolvers** and **column resolvers**. If yo
 
 ## Row Resolvers
 
-`table-resolver` uses an iterator that accepts rows and then transforms it using a specific resolver or several assuming they have been composed.
+`table-resolver` uses an iterator that accepts rows and then transforms it using a specific resolver method (or several, if they have been composed into one).
 
 ### `resolve.resolve`
 
 **`({ columns: <columns>, method: <resolver function>}) => <rows> => <rows>`**
 
-The `resolve` iterator accepts columns and a method. When applied with rows, it will return resolved rows. A resolver function accepts a function with signature like this: `({ rowData, rowIndex, column }) => <resolved row>`.
+The `resolve` iterator is the heart of this package. It accepts columns and a method. When applied with rows, it will return resolved rows. The method is a function with signature like: `({ column }) => (rowData) => <resolved row>`. In most cases, the `nested` and `byFunction` methods provided in this package (or a composition of them) will be all you need.
 
-### `resolve.index`
-
-**`({ rowIndex }) => (rowData) => <resolved row>`**
-
-`resolve.index` attached `rowIndex` at `_index` field of the returned row. This can be handy information to have for optimization purposes (`reactabular-tree`) but most often you don't have to use this one.
-
-### `resolve.nested`
+### Method `resolve.nested`
 
 **`({ column }) => (rowData) => <resolved row>`**
 
-The `nested` resolver digs rows from a `property: 'name.first'` kind of definition and maps the received value to property name. It replaces the original value with the resolved one.
+The `nested` resolver digs rows from a `property: 'name.first'` kind of definition and maps the received value to property name. It replaces the original value with the resolved one. *Note*: instead of defining a path string `property: 'name.first'`, you may provide a custom getter function `property: data => (data.name || {}).first` directly. This may be slightly faster but needs to be done carefully to prevent TypeErrors due to missing values.
 
-### `resolve.byFunction`
+### Method creator `resolve.byFunction`
 
 **`(path: <string>) => ({ column }) => (rowData) => <resolved row>`**
 
@@ -60,9 +54,21 @@ Assuming your column definition is nested, this function resolves it to a flat f
 
 If your column definition is nested, you have to resolve it to header rows. `resolve.headerRows` has been designed exactly for this purpose.
 
-## Combining Resolvers
+## Combining Resolver Methods
 
-If you want to combine resolvers, you can achieve it like this.
+You can easily combine resolver methods like this:
+
+```javascript
+const resolver = resolve.resolve({
+  columns,
+  method: ({ rowData, column }) => resolve.byFunction('cell.resolve')({
+    rowData: resolve.nested({ rowData, column }),
+    column
+  })
+});
+```
+
+or if you are already using redux:
 
 ```javascript
 import { compose } from 'redux';
