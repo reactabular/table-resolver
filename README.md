@@ -22,9 +22,12 @@ The API consists of two parts: **row resolvers** and **column resolvers**. If yo
 
 ### `resolve.resolve`
 
-**`({ columns: <columns>, method: <resolver function>}) => <rows> => <rows>`**
+**`({ columns: <columns>, method: <resolver function>, indexKey = '_index' }) => <rows> => <rows>`**
 
 The `resolve` iterator is the heart of this package. It accepts columns and a method. When applied with rows, it will return resolved rows. The method is a function with signature like: `({ column }) => (rowData) => <resolved row>`. In most cases, the `nested` and `byFunction` methods provided in this package (or a composition of them) will be all you need.
+
+The `resolve` iterator automatically injects into every resolved row object a field named `_index` containing the row's index.
+If your own resolver (e.g. `byFunction`) happens to also output a field named `_index`, it will overwrite the default one. In that case, if you still need the row index, you may wish to pass a different `indexKey` when calling `resolve`.
 
 ### Method `resolve.nested`
 
@@ -68,7 +71,7 @@ const resolver = resolve.resolve({
 });
 ```
 
-or if you are already using redux:
+or if you are already using Redux:
 
 ```javascript
 import { compose } from 'redux';

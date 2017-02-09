@@ -1,4 +1,4 @@
-function resolve({ columns, method }) {
+function resolve({ columns, method, indexKey = '_index' }) {
   if (!columns) {
     throw new Error('resolve - Missing columns!');
   }
@@ -18,10 +18,10 @@ function resolve({ columns, method }) {
         delete result.undefined;
 
         ret = {
+          [indexKey]: rowIndex,
           ...rowData,
           ...ret,
-          ...result,
-          _index: rowIndex
+          ...result
         };
       });
 

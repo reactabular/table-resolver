@@ -166,7 +166,7 @@ describe('resolve.resolve', function () {
     expect(resolver(rows)).toEqual(expected);
   });
 
-  it('inserts rowIndex', function () {
+  it('inserts rowIndex, based on keyIndex', function () {
     const originalId = 123;
     const columns = [
       {
@@ -183,7 +183,7 @@ describe('resolve.resolve', function () {
     const expected = [
       {
         id: originalId,
-        _index: 0
+        changedIndexKey: 0
       }
     ];
     const method = () => rowData => ({
@@ -191,7 +191,8 @@ describe('resolve.resolve', function () {
     });
     const resolver = resolve({
       columns,
-      method
+      method,
+      indexKey: 'changedIndexKey'
     });
 
     expect(resolver(rows)).toEqual(expected);

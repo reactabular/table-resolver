@@ -20,18 +20,14 @@ describe('resolve.nested', function () {
     expect(nested({ column })(rowData)).toEqual(expected);
   });
   it('resolves nested values, using a custom getter', function () {
-    const lastName = 'demo';
+    const last = 'demo';
     const property = a => (a.name || {}).last;
     const rowData = {
-      name: {
-        last: lastName
-      }
+      name: { last }
     };
     const expected = {
-      name: {
-        last: lastName
-      },
-      [property]: lastName
+      name: { last },
+      [property]: last
     };
     const column = { property };
 
