@@ -1,4 +1,4 @@
-function resolve({ columns, method }) {
+function resolve({ columns, method, indexKey = '_index' }) {
   if (!columns) {
     throw new Error('resolve - Missing columns!');
   }
@@ -6,26 +6,28 @@ function resolve({ columns, method }) {
     throw new Error('resolve - Missing method!');
   }
 
-  return (rows = []) => rows.map((rowData, rowIndex) => {
-    let ret = {};
+  return (rows = []) => {
+    const methodsByColumnIndex = columns.map(column => method({ column }));
 
-    columns.forEach((column) => {
-      const result = method({
-        rowIndex,
-        column
-      })(rowData);
+    return rows.map((rowData, rowIndex) => {
+      let ret = {};
 
-      delete result.undefined;
+      columns.forEach((column, columnIndex) => {
+        const result = methodsByColumnIndex[columnIndex](rowData);
 
-      ret = {
-        ...rowData,
-        ...ret,
-        ...result
-      };
+        delete result.undefined;
+
+        ret = {
+          [indexKey]: rowIndex,
+          ...rowData,
+          ...ret,
+          ...result
+        };
+      });
+
+      return ret;
     });
-
-    return ret;
-  });
+  };
 }
 
 export default resolve;
