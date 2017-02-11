@@ -1,6 +1,6 @@
 {
   "name": "table-resolver",
-  "version": "2.0.3",
+  "version": "3.0.0",
   "description": "Table resolution utilities",
   "scripts": {
     "test:all": "npm test && npm run test:lint",
