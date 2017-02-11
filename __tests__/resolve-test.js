@@ -6,8 +6,55 @@ describe('resolve.resolve', function () {
     expect(resolve).toThrow(Error);
   });
 
-  it('throws an error if method is not passed', function () {
-    expect(resolve.bind(null, { columns: [] })).toThrow(Error);
+  it('attaches only _index if method is not passed', function () {
+    const name = 'Demo';
+    const columns = [
+      {
+        property: 'name',
+        header: {
+          label: 'Last name'
+        }
+      }
+    ];
+    const rows = [
+      {
+        name
+      }
+    ];
+    const expected = [
+      {
+        name,
+        _index: 0
+      }
+    ];
+
+    expect(resolve({ columns })(rows)).toEqual(expected);
+  });
+
+  it('allows index key to be customized', function () {
+    const indexKey = 'foobar';
+    const name = 'Demo';
+    const columns = [
+      {
+        property: 'name',
+        header: {
+          label: 'Last name'
+        }
+      }
+    ];
+    const rows = [
+      {
+        name
+      }
+    ];
+    const expected = [
+      {
+        name,
+        [indexKey]: 0
+      }
+    ];
+
+    expect(resolve({ columns, indexKey })(rows)).toEqual(expected);
   });
 
   it('executes resolver over rows', function () {

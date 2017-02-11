@@ -1,9 +1,10 @@
-function resolve({ columns, method, indexKey = '_index' }) {
+function resolve({
+  columns,
+  method = () => rowData => rowData,
+  indexKey = '_index'
+}) {
   if (!columns) {
     throw new Error('resolve - Missing columns!');
-  }
-  if (!method) {
-    throw new Error('resolve - Missing method!');
   }
 
   return (rows = []) => {

@@ -1,5 +1,10 @@
 ## table-resolver
 
+3.1.0 / 2017-02-11
+==================
+
+  * Feature - Make `resolve.resolve` `method` optional. If it's not provided, it will inject only `_index` to the data.
+
 3.0.0 / 2017-02-11
 ==================
 
