@@ -1,5 +1,11 @@
 ## table-resolver
 
+3.0.0 / 2017-02-11
+==================
+
+  * Breaking - Drop `resolve.index`. The functionality has been integrated to `resolve.resolve`. You can customize it through `indexKey` option there. #2
+  * Feature - `resolve.nested` accepts custom getters through properties now. Example: `property: data => (data.name || {}).first`. #2
+
 2.0.0 / 2016-11-27
 ==================
 
