@@ -131,10 +131,15 @@ describe('resolveHeaderRows', function () {
     expect(resolveHeaderRows({ columns })).toEqual(expected);
   });
 
-  it('calculates rowSpan based on siblings', function () {
+  it('calculates colSpan and rowSpan based on siblings ang children', function () {
     const basicColumn = {
       header: {
         label: 'foo'
+      }
+    };
+    const thirdColumn = {
+      header: {
+        label: 'boo'
       }
     };
     const column = {
@@ -143,7 +148,13 @@ describe('resolveHeaderRows', function () {
       },
       children: [
         basicColumn,
-        basicColumn
+        {
+          ...thirdColumn,
+          children: [
+            basicColumn,
+            thirdColumn
+          ]
+        }
       ]
     };
     const columns = [basicColumn, column];
@@ -152,13 +163,27 @@ describe('resolveHeaderRows', function () {
         {
           ...basicColumn,
           props: {
-            rowSpan: 2
+            rowSpan: 3
           }
         },
         {
           header: {
             label: 'bar'
           },
+          props: {
+            colSpan: 3
+          }
+        }
+      ],
+      [
+        {
+          ...basicColumn,
+          props: {
+            rowSpan: 2
+          }
+        },
+        {
+          ...thirdColumn,
           props: {
             colSpan: 2
           }
@@ -172,7 +197,7 @@ describe('resolveHeaderRows', function () {
           }
         },
         {
-          ...basicColumn,
+          ...thirdColumn,
           props: {
             rowSpan: 1
           }
