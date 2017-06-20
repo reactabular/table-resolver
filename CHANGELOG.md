@@ -1,5 +1,10 @@
 ## table-resolver
 
+3.1.1 / 2017-06-20
+==================
+
+  * Fix - `resolve.headerRows` calculates `colSpan`s correctly now. #3
+
 3.1.0 / 2017-02-11
 ==================
 
