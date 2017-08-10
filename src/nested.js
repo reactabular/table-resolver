@@ -19,11 +19,6 @@ function nested({ column }) {
 
     // ... otherwise, make sure property exists, then _.get it
     if (!has(rowData, property)) {
-      console.warn( // eslint-disable-line no-console
-        `resolve.nested - Failed to find "${property}" property from`,
-        rowData
-      );
-
       return {};
     }
 
