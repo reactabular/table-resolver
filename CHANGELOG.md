@@ -1,5 +1,10 @@
 ## table-resolver
 
+3.2.0 / 2017-08-17
+==================
+
+  * Feature - Remove `resolve.nested - Failed to find "${property}" property from` warning. #4
+
 3.1.1 / 2017-06-20
 ==================
 
