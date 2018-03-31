@@ -80,6 +80,7 @@ describe('resolve.resolve', function () {
       }
     ];
     const method = ({ column }) => rowData => ({
+      ...rowData,
       [column.property]: rowData.name,
       [`_${column.property}`]: rowData.name
     });

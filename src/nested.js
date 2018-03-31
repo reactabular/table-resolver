@@ -3,6 +3,8 @@ import { get, has, isFunction } from 'lodash';
 const reIsPlainProp = /^\w*$/;
 
 function nested({ column }) {
+  /* eslint no-param-reassign: "off" */
+
   const { property } = column;
 
   if (!property) {
@@ -13,10 +15,10 @@ function nested({ column }) {
   // path for _.get, use that getter ...
   if (isFunction(property)) {
     // TODO: Function as key can't be right?
-    return rowData => ({
-      ...rowData,
-      [property]: property(rowData)
-    });
+    return (rowData) => {
+      rowData[property] = property(rowData);
+      return rowData;
+    };
   }
 
   // Make things simple if the property is simple.  No copy needed.
@@ -30,10 +32,8 @@ function nested({ column }) {
       return rowData;
     }
 
-    return {
-      ...rowData,
-      [property]: get(rowData, property)
-    };
+    rowData[property] = get(rowData, property);
+    return rowData;
   };
 }
 
