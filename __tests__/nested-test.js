@@ -52,7 +52,7 @@ describe('resolve.nested', function () {
     };
     const column = { property: undefined };
 
-    expect(nested({ column })(rowData)).toEqual({});
+    expect(nested({ column })(rowData)).toEqual(rowData);
   });
 
   it('does not crash without a property', function () {
@@ -62,7 +62,7 @@ describe('resolve.nested', function () {
     };
     const column = { cell: {} };
 
-    expect(nested({ column })(rowData)).toEqual({});
+    expect(nested({ column })(rowData)).toEqual(rowData);
   });
 
   it('does not crash without a cell', function () {
@@ -72,6 +72,6 @@ describe('resolve.nested', function () {
     };
     const column = {};
 
-    expect(nested({ column })(rowData)).toEqual({});
+    expect(nested({ column })(rowData)).toEqual(rowData);
   });
 });

@@ -6,12 +6,13 @@ function nested({ column }) {
   const { property } = column;
 
   if (!property) {
-    return () => ({});
+    return rowData => rowData;
   }
 
   // if users provide a custom getter instead of a
   // path for _.get, use that getter ...
   if (isFunction(property)) {
+    // TODO: Function as key can't be right?
     return rowData => ({
       ...rowData,
       [property]: property(rowData)
@@ -26,7 +27,7 @@ function nested({ column }) {
   return (rowData) => {
     // ... otherwise, make sure property exists, then _.get it
     if (!has(rowData, property)) {
-      return {};
+      return rowData;
     }
 
     return {
