@@ -20,8 +20,6 @@ function resolve({
         ret = boundMethod(ret);
       });
 
-      // TODO: What's the purpose of this?
-      delete ret.undefined;
       return ret;
     });
   };
