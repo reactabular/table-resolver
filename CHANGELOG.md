@@ -1,5 +1,10 @@
 ## table-resolver
 
+3.3.0 / 2018-04-03
+==================
+
+  * Performance - Improved performance (-36%) on large datasets. #6
+
 3.2.0 / 2017-08-17
 ==================
 
