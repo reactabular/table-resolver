@@ -3,24 +3,22 @@ import { get } from 'lodash';
 function byFunction(path) {
   return ({ column = {} }) => (rowData) => {
     const { property } = column;
+    const resolver = get(column, path);
 
-    if (!property) {
+    if (!property || !resolver) {
       return rowData;
     }
 
     const value = rowData[property];
-    const resolver = get(column, path);
     const ret = {
       ...rowData,
       [property]: value
     };
 
-    if (resolver) {
-      ret[`_${property}`] = resolver(value, {
-        property,
-        rowData
-      });
-    }
+    ret[`_${property}`] = resolver(value, {
+      property,
+      rowData
+    });
 
     return ret;
   };

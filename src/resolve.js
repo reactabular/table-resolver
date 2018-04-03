@@ -11,7 +11,10 @@ function resolve({
     const methodsByColumnIndex = columns.map(column => method({ column }));
 
     return rows.map((rowData, rowIndex) => {
-      let ret = {};
+      let ret = {
+        [indexKey]: rowIndex,
+        ...rowData
+      };
 
       columns.forEach((column, columnIndex) => {
         const result = methodsByColumnIndex[columnIndex](rowData);
@@ -19,8 +22,6 @@ function resolve({
         delete result.undefined;
 
         ret = {
-          [indexKey]: rowIndex,
-          ...rowData,
           ...ret,
           ...result
         };
