@@ -295,4 +295,18 @@ describe('resolve.resolve', function () {
 
     expect(resolver()).toEqual([]);
   });
+
+  it('crashes without columns', function () {
+    const rows = [
+      {
+        id: 123
+      }
+    ];
+    const perform = () => {
+      const resolver = resolve({ rows });
+      return resolver()
+    };
+
+    expect(perform).toThrow();
+  });
 });
