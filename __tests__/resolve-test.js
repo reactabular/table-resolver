@@ -85,10 +85,12 @@ describe('resolve.resolve', function () {
       [`_${column.property}`]: rowData.name
     });
 
-    expect(resolve({
-      columns,
-      method
-    })(rows)).toEqual(expected);
+    expect(
+      resolve({
+        columns,
+        method
+      })(rows)
+    ).toEqual(expected);
   });
 
   it('executes nested over rows', function () {
@@ -127,9 +129,7 @@ describe('resolve.resolve', function () {
       }
     ];
 
-    expect(
-      resolve({ columns, method: nested })(rows)
-    ).toEqual(expected);
+    expect(resolve({ columns, method: nested })(rows)).toEqual(expected);
   });
 
   it('resolves using multiple resolvers', function () {
@@ -164,10 +164,8 @@ describe('resolve.resolve', function () {
     ];
     const resolver = resolve({
       columns,
-      method: extra => compose(
-        byFunction('cell.resolve')(extra),
-        nested(extra)
-      )
+      method: extra =>
+        compose(byFunction('cell.resolve')(extra), nested(extra))
     });
 
     expect(resolver(rows)).toEqual(expected);
@@ -205,10 +203,8 @@ describe('resolve.resolve', function () {
     ];
     const resolver = resolve({
       columns,
-      method: extra => compose(
-        byFunction('cell.resolve')(extra),
-        nested(extra)
-      )
+      method: extra =>
+        compose(byFunction('cell.resolve')(extra), nested(extra))
     });
 
     expect(resolver(rows)).toEqual(expected);
@@ -268,10 +264,8 @@ describe('resolve.resolve', function () {
     ];
     const resolver = resolve({
       columns,
-      method: extra => compose(
-        byFunction('cell.resolve')(extra),
-        nested(extra)
-      )
+      method: extra =>
+        compose(byFunction('cell.resolve')(extra), nested(extra))
     });
 
     expect(resolver(rows)).toEqual(expected);
@@ -287,10 +281,11 @@ describe('resolve.resolve', function () {
     ];
     const resolver = resolve({
       columns,
-      method: ({ rowData, column }) => byFunction('cell.resolve')({
-        rowData: nested({ rowData, column }),
-        column
-      })
+      method: ({ rowData, column }) =>
+        byFunction('cell.resolve')({
+          rowData: nested({ rowData, column }),
+          column
+        })
     });
 
     expect(resolver()).toEqual([]);
@@ -304,7 +299,8 @@ describe('resolve.resolve', function () {
     ];
     const perform = () => {
       const resolver = resolve({ rows });
-      return resolver()
+
+      return resolver();
     };
 
     expect(perform).toThrow();
