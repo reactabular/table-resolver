@@ -1,6 +1,6 @@
 ## table-resolver
 
-4.0.0 / 2018-04-05
+4.0.1 / 2018-04-05
 ==================
 
   * Performance - Improve performance (90% or better). #7
