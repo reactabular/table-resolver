@@ -80,6 +80,7 @@ describe('resolve.resolve', function () {
       }
     ];
     const method = ({ column }) => rowData => ({
+      ...rowData,
       [column.property]: rowData.name,
       [`_${column.property}`]: rowData.name
     });
@@ -293,5 +294,19 @@ describe('resolve.resolve', function () {
     });
 
     expect(resolver()).toEqual([]);
+  });
+
+  it('crashes without columns', function () {
+    const rows = [
+      {
+        id: 123
+      }
+    ];
+    const perform = () => {
+      const resolver = resolve({ rows });
+      return resolver()
+    };
+
+    expect(perform).toThrow();
   });
 });

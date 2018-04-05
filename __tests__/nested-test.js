@@ -45,6 +45,17 @@ describe('resolve.nested', function () {
     expect(nested({ column })(rowData)).toEqual({ [property]: name });
   });
 
+  it('does not crash when row is missing property', function () {
+    const name = 'demo';
+    const property = 'other.name';
+    const rowData = {
+      name
+    };
+    const column = { property };
+
+    expect(nested({ column })(rowData)).toEqual(rowData);
+  });
+
   it('does nothing if there is no property', function () {
     const name = 'demo';
     const rowData = {
@@ -52,7 +63,7 @@ describe('resolve.nested', function () {
     };
     const column = { property: undefined };
 
-    expect(nested({ column })(rowData)).toEqual({});
+    expect(nested({ column })(rowData)).toEqual(rowData);
   });
 
   it('does not crash without a property', function () {
@@ -62,7 +73,7 @@ describe('resolve.nested', function () {
     };
     const column = { cell: {} };
 
-    expect(nested({ column })(rowData)).toEqual({});
+    expect(nested({ column })(rowData)).toEqual(rowData);
   });
 
   it('does not crash without a cell', function () {
@@ -72,6 +83,6 @@ describe('resolve.nested', function () {
     };
     const column = {};
 
-    expect(nested({ column })(rowData)).toEqual({});
+    expect(nested({ column })(rowData)).toEqual(rowData);
   });
 });

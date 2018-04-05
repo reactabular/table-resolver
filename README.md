@@ -30,11 +30,15 @@ The `resolve` iterator automatically injects into every resolved row object a fi
 
 If your own resolver (e.g. `byFunction`) happens to also output a field named `_index`, it will overwrite the default one. In that case, if you still need the row index, you may wish to pass a different `indexKey` when calling `resolve`.
 
+Note that columns are resolved in order.  This means the `rowData` passed into a custom resolver will contain properties from earlier columns.
+
 ### Method `resolve.nested`
 
 **`({ column }) => (rowData) => <resolved row>`**
 
 The `nested` resolver digs rows from a `property: 'name.first'` kind of definition and maps the received value to property name. It replaces the original value with the resolved one. *Note*: instead of defining a path string `property: 'name.first'`, you may provide a custom getter function `property: data => (data.name || {}).first` directly. This may be slightly faster but needs to be done carefully to prevent TypeErrors due to missing values.
+
+This is not intended to be called directly.  Pass it as a method to `resolve.resolve()`.
 
 ### Method creator `resolve.byFunction`
 
@@ -43,6 +47,8 @@ The `nested` resolver digs rows from a `property: 'name.first'` kind of definiti
 The `byFunction` resolver accepts a path from where to look for a resolving function. It could be `column.cell.resolve` for example and you can use a nested definition for getting it from your column definition.
 
 Instead of replacing the original value, `byFunction` generates `_<property>` kind of field to the resulting rows. This sort of implicit rule is useful for other functionality as it can rely on the same convention.
+
+This is not intended to be called directly.  Pass it as a method to `resolve.resolve()`.
 
 ## Column Resolvers
 

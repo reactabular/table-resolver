@@ -1,6 +1,8 @@
 import { get } from 'lodash';
 
 function byFunction(path) {
+  /* eslint no-param-reassign: "off" */
+
   return ({ column = {} }) => (rowData) => {
     const { property } = column;
     const resolver = get(column, path);
@@ -10,17 +12,13 @@ function byFunction(path) {
     }
 
     const value = rowData[property];
-    const ret = {
-      ...rowData,
-      [property]: value
-    };
 
-    ret[`_${property}`] = resolver(value, {
+    rowData[`_${property}`] = resolver(value, {
       property,
       rowData
     });
 
-    return ret;
+    return rowData;
   };
 }
 

@@ -8,7 +8,7 @@ function resolve({
   }
 
   return (rows = []) => {
-    const methodsByColumnIndex = columns.map(column => method({ column }));
+    const methodsByColumn = columns.map(column => method({ column }));
 
     return rows.map((rowData, rowIndex) => {
       let ret = {
@@ -16,15 +16,8 @@ function resolve({
         ...rowData
       };
 
-      columns.forEach((column, columnIndex) => {
-        const result = methodsByColumnIndex[columnIndex](rowData);
-
-        delete result.undefined;
-
-        ret = {
-          ...ret,
-          ...result
-        };
+      methodsByColumn.forEach((boundMethod) => {
+        ret = boundMethod(ret);
       });
 
       return ret;
