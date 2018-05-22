@@ -1,5 +1,10 @@
 ## table-resolver
 
+4.1.0 / 2018-05-22
+==================
+
+  * Refactor - Move Lodash as a normal dependency. #5
+
 4.0.1 / 2018-04-05
 ==================
 
