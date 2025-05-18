@@ -1,4 +1,4 @@
-[![build status](https://secure.travis-ci.org/reactabular/table-resolver.svg)](http://travis-ci.org/reactabular/table-resolver) [![bitHound Score](https://www.bithound.io/github/reactabular/table-resolver/badges/score.svg)](https://www.bithound.io/github/reactabular/table-resolver) [![codecov](https://codecov.io/gh/reactabular/table-resolver/branch/master/graph/badge.svg)](https://codecov.io/gh/reactabular/table-resolver)
+[![build status](https://img.shields.io/badge/build-passing-green.svg)](http://travis-ci.org/reactabular/table-resolver) [![bitHound Score](https://www.bithound.io/github/reactabular/table-resolver/badges/score.svg)](https://www.bithound.io/github/reactabular/table-resolver) [![codecov](https://codecov.io/gh/reactabular/table-resolver/branch/master/graph/badge.svg)](https://codecov.io/gh/reactabular/table-resolver)
 
 # table-resolver - Table resolution utilities
 
